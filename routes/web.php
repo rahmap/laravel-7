@@ -31,3 +31,5 @@ Route::group(['prefix' => 'auth'], function () {
 
     Route::get('/log-out', 'AuthController@logout')->middleware('auth')->name('log-out');
 });
+
+Route::resource('product','ProductController')->middleware('auth');
