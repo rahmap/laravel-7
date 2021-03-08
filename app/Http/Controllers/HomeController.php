@@ -29,7 +29,7 @@ class HomeController extends Controller
         } catch (\Exception $e) {
             session()->flash('messages', alertBS('Error!','Can\'t find user with ID '.$id,'danger'));
         }
-        return redirect()->route('home');
+        return redirect()->back();
     }
 
     public function edit($id)
@@ -44,7 +44,7 @@ class HomeController extends Controller
         } catch (\Exception $e) {
             session()->flash('messages', alertBS('Error!','Can\'t find user with ID '.$id,'danger'));
         }
-        return redirect()->route('home');
+        return redirect()->back();
     }
 
     public function update(request $request)
@@ -72,5 +72,23 @@ class HomeController extends Controller
             session()->flash('messages', alertBS('Error!','Can\'t update user with ID '.$id,'danger'));
         }
         return redirect()->back();
+    }
+
+    public function users()
+    {
+        $data = [
+          'title' => 'User List',
+          'users' => UserModel::all()
+        ];
+        return view('user.v_user_list', $data);
+    }
+
+    public function users_vue()
+    {
+        $data = [
+            'title' => 'User List (Vue.js)',
+            'users' => UserModel::all()
+        ];
+        return view('user.v_user_list', $data);
     }
 }

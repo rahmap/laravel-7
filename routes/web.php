@@ -18,6 +18,8 @@ Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
 Route::delete('/delete/{id}', 'HomeController@destroy')->middleware('auth');
 Route::get('/edit/{id}', 'HomeController@edit')->middleware('auth');
 Route::put('/update/{id}', 'HomeController@update')->middleware('auth');
+Route::get('/users', 'HomeController@users')->middleware('auth');
+Route::get('/users/vue', 'HomeController@users_vue')->middleware('auth');
 
 Route::group(['prefix' => 'auth'], function () {
     Route::get('/', function () {
