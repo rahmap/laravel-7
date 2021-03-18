@@ -15,11 +15,32 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@index')->middleware('auth')->name('root');
 Route::get('/home', 'HomeController@index')->middleware('auth')->name('home');
-Route::delete('/delete/{id}', 'HomeController@destroy')->middleware('auth');
-Route::get('/edit/{id}', 'HomeController@edit')->middleware('auth');
-Route::put('/update/{id}', 'HomeController@update')->middleware('auth');
-Route::get('/users', 'HomeController@users')->middleware('auth');
-Route::get('/users/vue', 'HomeController@users_vue')->middleware('auth');
+
+/**
+ * USER
+ */
+Route::delete('/delete/{id}', 'HomeController@destroy')->middleware('admin');
+Route::get('/edit/{id}', 'HomeController@edit')->middleware('admin');
+Route::put('/update/{id}', 'HomeController@update')->middleware('admin');
+Route::get('/users', 'HomeController@users')->middleware('admin')->name('user_list');
+Route::get('/users/vue', 'HomeController@users_vue')->middleware('admin');
+/**
+ * END USER
+ */
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', function () {
+        return redirect()->route('sign-in-admin');
+    })->middleware('admin_guest');
+    Route::get('/logout', 'AdminController@logout')->middleware('admin')->name('log-out-admin');
+
+    Route::group(['middleware' => 'admin_guest'], function (){
+        Route::get('/login', 'AdminController@login')->name('sign-in-admin');
+        Route::post('/login', 'AdminController@loginPostAction')->name('sign-in-admin-post');
+        Route::get('/register', 'AdminController@register')->name('sign-up-admin');
+        Route::post('/register', 'AdminController@registerPostAction')->name('sign-up-admin-post');
+    });
+
+});
 
 Route::group(['prefix' => 'auth'], function () {
     Route::get('/', function () {

@@ -39,6 +39,16 @@
                         <a class="dropdown-item" href="{{ url('/users/vue') }}">User List (Vue.js)</a>
                     </div>
                 </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Admin Auth
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('sign-up-admin') }}">Admin Register</a>
+                        <a class="dropdown-item" href="{{ route('sign-in-admin') }}">Admin Login</a>
+                        <a class="dropdown-item" href="{{ route('log-out-admin') }}">Admin Logout</a>
+                    </div>
+                </li>
             </ul>
             <div class="form-inline my-2 my-lg-0">
                 <ul class="navbar-nav mr-auto">
